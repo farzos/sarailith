@@ -3,528 +3,470 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dance To The Beat — Bio</title>
-  <meta name="description" content="Bio page - Dance To The Beat! Pink & white animated site." />
+  <title>HHizzoo — Dance Bio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --pink:#ff6fb5;
-      --pink-2:#ff4fa0;
-      --white:#ffffff;
-      --bg:#fff6fb;
+      --bg1: #fff0f6;
+      --bg2: #fff9fb;
+      --pink: #ff66b2;
+      --pink-2: #ff4aa6;
+      --accent: #ff66b2;
       --glass: rgba(255,255,255,0.6);
-      --card-shadow: 0 10px 30px rgba(255,111,181,0.12);
-      --radius:16px;
-      --ease: cubic-bezier(.22,.9,.36,1);
+      --txt-dark: #2b2b2b;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto;}
     body{
-      background: radial-gradient(circle at 10% 20%, rgba(255,111,181,0.06), transparent 10%),
-                  radial-gradient(circle at 90% 80%, rgba(255,79,160,0.04), transparent 15%),
-                  var(--bg);
-      color:#222;
+      background: linear-gradient(180deg,var(--bg1),var(--bg2));
       overflow:hidden;
+      color:var(--txt-dark);
       display:flex;
       align-items:center;
       justify-content:center;
+      padding:32px;
     }
 
-    /* App container */
-    .app{
-      width:min(1100px,95%);
+    /* background floating blobs */
+    .bg{
+      position:fixed;inset:0;z-index:0;pointer-events:none;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255,102,178,0.12) 0 12%, transparent 20%),
+        radial-gradient(circle at 80% 80%, rgba(255,74,166,0.10) 0 14%, transparent 26%),
+        radial-gradient(circle at 60% 15%, rgba(255,200,230,0.08) 0 18%, transparent 30%);
+      animation: bgMove 18s linear infinite;
+      filter: blur(18px) saturate(115%);
+    }
+    @keyframes bgMove{ 0%{transform:translateY(0)}50%{transform:translateY(-20px)}100%{transform:translateY(0)}}
+
+    /* main card */
+    .card{
+      z-index:2;
+      width:100%;
+      max-width:1100px;
       height:80vh;
-      background: linear-gradient(180deg,var(--glass), rgba(255,255,255,0.85));
+      background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
       border-radius:var(--radius);
-      box-shadow: var(--card-shadow);
+      box-shadow:var(--shadow);
       display:grid;
-      grid-template-columns: 260px 1fr;
-      gap:20px;
-      padding:22px;
-      position:relative;
-      transform-origin:center;
-      transition: transform 360ms var(--ease), box-shadow 360ms var(--ease);
-      overflow:visible;
-      backdrop-filter: blur(8px) saturate(1.08);
+      grid-template-columns:260px 1fr;
+      overflow:hidden;
+      border: 1px solid rgba(255,102,178,0.06);
     }
 
-    /* Tabs column */
+    /* sidebar */
     .sidebar{
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:stretch;
+      padding:24px;
+      background:linear-gradient(180deg, rgba(255,250,252,0.65), rgba(255,245,249,0.5));
+      border-right:1px dashed rgba(255,102,178,0.06);
     }
-    .logo{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      padding:8px;
+    .brand{
+      display:flex;gap:12px;align-items:center;margin-bottom:18px;
     }
-    .logo img{width:48px;height:48px;border-radius:12px;box-shadow: 0 6px 20px rgba(255,111,181,0.12);}
-    .logo h1{font-size:18px;margin:0;color:var(--pink);letter-spacing:0.4px;}
+    .brand img{width:56px;height:56px;border-radius:12px;object-fit:cover;border:3px solid #fff;}
+    .brand h3{margin:0;font-size:18px;color:var(--pink);letter-spacing:0.4px}
+    .brand p{margin:0;font-size:12px;color:#8b6a78}
 
-    nav.tabs{display:flex;flex-direction:column;gap:8px;margin-top:6px;}
-    .tab{
-      display:flex;gap:12px;align-items:center;padding:10px;border-radius:12px;cursor:pointer;
-      transition: transform 220ms var(--ease), background 220ms var(--ease), box-shadow 220ms var(--ease);
-      user-select:none;
+    .nav{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+    .nav button{
+      display:flex;gap:12px;align-items:center;border:0;background:transparent;padding:12px;border-radius:12px;cursor:pointer;
+      transition:all .18s ease;font-weight:600;color:#844055;
     }
-    .tab img{width:22px;height:22px;filter:grayscale(0) contrast(1);}
-    .tab .txt{font-weight:600;color:#333;}
-    .tab:hover{transform:translateX(6px);}
+    .nav button:hover{background:linear-gradient(90deg, rgba(255,102,178,0.06), rgba(255,74,166,0.03));transform:translateX(6px)}
+    .nav button.active{background:linear-gradient(90deg, rgba(255,102,178,0.12), rgba(255,74,166,0.06));box-shadow:0 6px 18px rgba(255,102,178,0.06)}
 
-    .tab.active{
-      background: linear-gradient(90deg, rgba(255,111,181,0.12), rgba(255,79,160,0.06));
-      box-shadow: 0 8px 20px rgba(255,111,181,0.06);
-    }
+    .nav img{width:22px;height:22px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.06))}
 
-    /* main content */
-    .main{
-      padding:18px;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-      position:relative;
-    }
+    /* content area */
+    .content{padding:28px;position:relative;overflow:hidden}
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    .topbar .title{font-weight:700;color:#5a2540}
+    .topbar .small{font-size:13px;color:#7a5566}
 
-    .header{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    /* dancer hero */
+    .hero{
+      display:grid;grid-template-columns:1fr 420px;gap:18px;align-items:center;
+      margin-bottom:18px;
     }
-    .search{
-      display:flex;align-items:center; gap:10px; background:rgba(255,255,255,0.8);
-      padding:8px 12px;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,0.04);
-      min-width:220px;
+    .left{
+      background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,245,249,0.8));
+      border-radius:12px;padding:20px;box-shadow:var(--shadow);
+      min-height:220px;position:relative;overflow:hidden;
     }
-    .search input{border:0;background:transparent;outline:0;font-weight:600;color:#444;}
+    .intro{
+      font-size:28px;font-weight:700;color:#5a2540;margin:0 0 8px;
+      display:flex;align-items:center;gap:12px;
+    }
+    .sub{color:#8b6a78;margin:0 0 14px;font-weight:500}
+    .features{display:flex;gap:12px;flex-wrap:wrap}
 
-    /* Card for content area */
-    .content{
-      flex:1;
-      background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.6));
-      border-radius:12px;padding:18px;overflow:auto;
-      position:relative;
+    .feature{
+      background:rgba(255,255,255,0.8);padding:10px 12px;border-radius:10px;border:1px solid rgba(255,102,178,0.06);min-width:140px
     }
 
-    /* Intro big center text that dances then fades */
-    .center-intro{
-      position:absolute; left:50%; top:35%; transform:translate(-50%,-50%); text-align:center;
-      pointer-events:none; z-index:5;
+    /* right dancer area (avatar + dancing text) */
+    .right{
+      display:flex;flex-direction:column;gap:12px;align-items:center;
     }
-    .center-intro h2{
-      font-size:48px;margin:0;color:var(--pink-2); text-shadow:0 6px 30px rgba(255,79,160,0.08);
-      animation: intro-dance 1s ease both;
+    .avatar{
+      width:180px;height:180px;border-radius:18px;background:linear-gradient(135deg,var(--pink),var(--pink-2));
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:28px;box-shadow:0 10px 30px rgba(255,102,178,0.12);
     }
-
-    @keyframes intro-dance{
-      0%{transform:translateY(30px) scale(0.95); opacity:0;}
-      20%{opacity:1;transform:translateY(-6px) scale(1.05) rotate(-2deg);}
-      40%{transform:translateY(6px) scale(1) rotate(1deg);}
-      60%{transform:translateY(-4px) scale(1.02) rotate(-1deg);}
-      100%{transform:translateY(0) scale(1); opacity:1;}
+    .danceText{
+      margin-top:10px;font-weight:800;font-size:22px;color:var(--pink);opacity:0;transform:translateY(8px);
+      will-change:transform,opacity;
     }
 
-    .center-intro.fade-out{ animation:fadeOut 700ms ease forwards 1.2s; }
-    @keyframes fadeOut { to { opacity:0; transform:translate(-50%,-50%) scale(0.98) } }
+    /* tabs content */
+    .tabs{margin-top:10px}
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
 
-    /* Click overlay */
-    .click-overlay{
-      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-      z-index:20; background: linear-gradient(180deg, rgba(255,255,255,0.0), rgba(255,255,255,0.0));
-      pointer-events:auto;
-    }
-    .click-box{
-      background:linear-gradient(180deg, #fff,#fff); border-radius:18px; padding:28px 40px;
-      box-shadow: 0 30px 80px rgba(255,111,181,0.12);
-      display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;
-    }
-    .click-box h3{margin:0;font-size:28px;color:var(--pink);font-weight:800;letter-spacing:0.6px;}
-    .click-box p{margin:0;color:#666;font-weight:700;}
-    .pulse{
-      width:96px;height:96px;border-radius:999px;border:4px solid rgba(255,111,181,0.12);
-      display:flex;align-items:center;justify-content:center;
-      animation: pulse 1200ms infinite;
-    }
-    @keyframes pulse{
-      0%{transform:scale(1); box-shadow:0 0 0 0 rgba(255,111,181,0.08);}
-      70%{transform:scale(1.06); box-shadow:0 18px 60px rgba(255,111,181,0.06);}
-      100%{transform:scale(1); box-shadow:0 0 0 0 rgba(255,111,181,0.00);}
-    }
+    /* videos carousel */
+    .carousel{margin-top:12px;background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,245,249,0.9));border-radius:12px;padding:10px;border:1px solid rgba(255,102,178,0.04)}
+    .carousel iframe{width:100%;height:280px;border-radius:10px;border:0}
+    .carousel-controls{display:flex;gap:8px;justify-content:center;margin-top:8px}
+    .ctrl{padding:8px 12px;border-radius:10px;border:0;background:transparent;cursor:pointer;font-weight:700;color:var(--pink)}
+    .thumbs{display:flex;gap:8px;overflow:auto;margin-top:8px;padding-bottom:4px}
+    .thumbs img{width:140px;height:78px;border-radius:8px;object-fit:cover;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.05)}
 
-    /* Elements that animate on beat */
-    .beat-animated{
-      transition: transform 180ms var(--ease), box-shadow 180ms var(--ease);
+    /* overlay click to play */
+    #overlay{
+      position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:10;
+      background:linear-gradient(180deg, rgba(255,255,255,0.0), rgba(255,255,255,0.0));
     }
-    .beat{ /* small pulse on beat */
-      animation: beatPulse 220ms ease;
+    #overlay .bubble{
+      width:320px;height:120px;border-radius:20px;background:linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,250,252,0.95));
+      display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:var(--shadow);
+      backdrop-filter: blur(6px);
+      cursor:pointer;border:1px solid rgba(255,102,178,0.08);
+      text-align:center;
     }
-    @keyframes beatPulse{
-      0%{transform:scale(1)}
-      50%{transform:scale(1.02)}
-      100%{transform:scale(1)}
+    .bubble h2{margin:0;font-size:20px;color:var(--pink)}
+    .bubble p{margin:6px 0 0;color:#8b6a78;font-weight:600}
+
+    /* beat animation class */
+    .beat {
+      animation: beatAnim 130ms ease-out;
     }
-    .hard-beat{ animation: hardBounce 420ms cubic-bezier(.2,.9,.3,1); }
-    @keyframes hardBounce{
+    @keyframes beatAnim{
       0%{transform:translateY(0) scale(1)}
-      30%{transform:translateY(-18px) scale(1.05)}
-      60%{transform:translateY(6px) scale(0.98)}
+      50%{transform:translateY(-8px) scale(1.05)}
       100%{transform:translateY(0) scale(1)}
     }
 
-    /* Floating background shapes */
-    .floater{
-      position:absolute; border-radius:20px; opacity:0.12; filter: blur(12px); transform-origin:center;
-      pointer-events:none;
-      transition: transform 180ms linear;
+    /* the initial dancing "Dance To The Beat!" that fades out */
+    .bigCenter{
+      position:absolute;left:50%;top:12%;transform:translateX(-50%);z-index:9;
+      text-align:center;pointer-events:none;
     }
-    .floater.a{ width:260px;height:120px;left: -40px; top: -30px; background:linear-gradient(90deg,var(--pink),var(--pink-2)); }
-    .floater.b{ width:180px;height:180px; right:-30px; bottom:-40px; background:linear-gradient(90deg,#ffd1e8,rgba(255,111,181,0.6)); border-radius:40px;}
-    .floater.c{ width:120px;height:80px; left:10%; bottom:5%; background:linear-gradient(90deg,#ffe6f5,#ffb1db); border-radius:50px;}
-
-    /* Simple cards/content placeholders */
-    .grid{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+    .bigCenter h1{
+      font-size:42px;color:var(--pink);margin:6px 0;font-weight:900;text-shadow:0 6px 30px rgba(255,102,178,0.06);
+      animation: floaty 2.6s ease-in-out infinite;
+      will-change:transform,opacity;
     }
-    .card{
-      padding:12px;border-radius:12px;background:rgba(255,255,255,0.85);box-shadow:0 6px 22px rgba(0,0,0,0.04);
-      display:flex;flex-direction:column;gap:8px;min-height:96px;
-    }
-    .thumb{height:90px;border-radius:10px;background:linear-gradient(90deg,#ffe6f5,#ffc7ea);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--pink-2);}
+    @keyframes floaty{0%{transform:translate(-50%,0)}50%{transform:translate(-50%,-6px)}100%{transform:translate(-50%,0)}}
 
     /* responsive */
-    @media (max-width:880px){
-      .app{ grid-template-columns: 1fr; height:92vh; padding:14px; }
-      .sidebar{order:2;flex-direction:row;overflow:auto;gap:10px;padding:8px;}
-      .logo h1{display:none;}
-    }
-    /* subtle scroll style for content */
-    .content::-webkit-scrollbar{height:8px;width:8px}
-    .content::-webkit-scrollbar-thumb{background:linear-gradient(90deg,var(--pink),var(--pink-2));border-radius:8px}
-    .content::-webkit-scrollbar-track{background:transparent}
-
-    /* small helper */
-    .muted{color:#666;font-weight:600}
-    a.btn{
-      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;font-weight:700;text-decoration:none;
-      background:linear-gradient(90deg,var(--pink),var(--pink-2));color:white;
-      box-shadow:0 8px 24px rgba(255,111,181,0.12);
+    @media (max-width:980px){
+      .card{grid-template-columns:1fr; height:88vh}
+      .hero{grid-template-columns:1fr}
+      .avatar{width:140px;height:140px}
+      .carousel iframe{height:200px}
     }
   </style>
 </head>
 <body>
-  <div class="app beat-animated" id="app">
-    <!-- floating shapes -->
-    <div class="floater a" id="floaterA"></div>
-    <div class="floater b" id="floaterB"></div>
-    <div class="floater c" id="floaterC"></div>
+  <div class="bg"></div>
 
+  <div class="card" role="main" aria-label="HHizzoo bio card">
     <aside class="sidebar">
-      <div class="logo">
-        <img src="https://img.icons8.com/fluency/96/ff6fb5/dancing-girl.png" alt="logo">
+      <div class="brand">
+        <!-- icons8 profile placeholder (you can replace with real YouTube profile pic link) -->
+        <img src="https://img.icons8.com/ios-filled/100/ff66b2/user-male-circle.png" alt="avatar">
         <div>
-          <h1>Prompt</h1>
-          <div class="muted" style="font-size:12px">Bio • Beats • Videos</div>
+          <h3>HHizzoo</h3>
+          <p>@hhizzoo • Roblox videos</p>
         </div>
       </div>
 
-      <nav class="tabs" role="tablist" aria-label="Main tabs">
-        <div class="tab active" data-tab="home" role="tab" tabindex="0">
-          <img src="https://img.icons8.com/ios-filled/50/ff6fb5/home.png" alt="">
-          <div class="txt">Home</div>
-        </div>
-        <div class="tab" data-tab="bio" role="tab" tabindex="0">
-          <img src="https://img.icons8.com/ios-filled/50/ff6fb5/user-male-circle.png" alt="">
-          <div class="txt">Bio</div>
-        </div>
-        <div class="tab" data-tab="videos" role="tab" tabindex="0">
-          <img src="https://img.icons8.com/ios-filled/50/ff6fb5/youtube-play.png" alt="">
-          <div class="txt">Videos</div>
-        </div>
-        <div class="tab" data-tab="contact" role="tab" tabindex="0">
-          <img src="https://img.icons8.com/ios-filled/50/ff6fb5/new-post.png" alt="">
-          <div class="txt">Contact</div>
-        </div>
+      <nav class="nav" role="tablist" aria-label="Main nav">
+        <button class="active" data-tab="home"><img src="https://img.icons8.com/ios/50/ff66b2/home.png" alt=""> Home</button>
+        <button data-tab="videos"><img src="https://img.icons8.com/ios/50/ff66b2/youtube-play.png" alt=""> Videos</button>
+        <button data-tab="bio"><img src="https://img.icons8.com/ios/50/ff66b2/user.png" alt=""> Bio</button>
+        <button data-tab="contact"><img src="https://img.icons8.com/ios/50/ff66b2/new-post.png" alt=""> Contact</button>
       </nav>
 
-      <div style="margin-top:auto;padding-top:8px;">
-        <a class="btn" href="#" id="followBtn"><img src="https://img.icons8.com/ios-filled/20/ffffff/plus-math.png" alt=""> Follow</a>
+      <div style="margin-top:18px;font-size:13px;color:#905367">
+        <div style="margin-bottom:8px;font-weight:700">Quick Links</div>
+        <a href="https://www.youtube.com/@hhizzoo" target="_blank" rel="noopener noreferrer" style="display:inline-block;color:var(--pink);text-decoration:none">YouTube Channel</a>
       </div>
     </aside>
 
-    <main class="main">
-      <div class="header">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div class="muted">Now playing</div>
-          <div id="nowPlaying" style="font-weight:800;color:var(--pink)">— Idle</div>
+    <section class="content">
+      <div class="bigCenter" id="bigCenter">
+        <h1 id="danceHero">Dance To The Beat!</h1>
+      </div>
+
+      <div class="topbar">
+        <div class="title">Welcome — play the track & vibe</div>
+        <div class="small">UI dances with the music — pink & white theme</div>
+      </div>
+
+      <div class="hero">
+        <div class="left">
+          <h2 class="intro">Hi — I'm HHizzoo</h2>
+          <p class="sub">I make Roblox exploiting videos on YouTube. This is my animated bio page — built to dance with Caramelldansen.</p>
+
+          <div class="features">
+            <div class="feature">YouTuber • Roblox content</div>
+            <div class="feature">Animated UI</div>
+            <div class="feature">Beat-reactive visuals</div>
+            <div class="feature">Video carousel</div>
+          </div>
+
+          <div class="tabs">
+            <div id="home" class="tab-panel active">
+              <div class="carousel" aria-live="polite">
+                <iframe id="videoFrame" src="" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="carousel-controls">
+                  <button id="prev" class="ctrl">Prev</button>
+                  <button id="playPause" class="ctrl">Pause</button>
+                  <button id="next" class="ctrl">Next</button>
+                </div>
+                <div class="thumbs" id="thumbs"></div>
+              </div>
+            </div>
+
+            <div id="videos" class="tab-panel">
+              <h3 style="margin-top:0">Latest Videos</h3>
+              <div id="videoList"></div>
+            </div>
+
+            <div id="bio" class="tab-panel">
+              <h3 style="margin-top:0">About Me</h3>
+              <p>I upload Roblox-related videos — tutorials, GUI showcases, and remakes. Join my channel for more content and dev progress updates.</p>
+            </div>
+
+            <div id="contact" class="tab-panel">
+              <h3 style="margin-top:0">Contact</h3>
+              <p>Business: <a href="mailto:contact@example.com">contact@example.com</a></p>
+            </div>
+          </div>
         </div>
-        <div class="search">
-          <img src="https://img.icons8.com/ios-filled/24/ff6fb5/search--v1.png" alt="">
-          <input placeholder="Search videos, tabs, stuff..." id="searchInput" />
+
+        <div class="right">
+          <div class="avatar" id="avatar">HH</div>
+          <div class="danceText" id="danceText">Dance To The Beat!</div>
+          <div style="font-size:13px;color:#7a5566">Click the center to start the song</div>
         </div>
       </div>
 
-      <section class="content" id="contentArea" tabindex="0">
-        <!-- center intro text -->
-        <div class="center-intro" id="centerIntro" aria-hidden="true">
-          <h2 id="danceText">Dance To The Beat!</h2>
-        </div>
-
-        <!-- content pages -->
-        <div id="page-home" class="page" role="tabpanel">
-          <h3 style="margin-top:0;color:var(--pink)">Welcome!</h3>
-          <p class="muted">This is a small, animated bio site that grooves to the music. Click anywhere to start the song and watch the UI dance.</p>
-
-          <div class="grid" style="margin-top:12px;">
-            <div class="card">
-              <div class="thumb">Latest Upload</div>
-              <div><strong>Caramelldansen Remix</strong></div>
-              <div class="muted">Fun, energetic, and synced to UI animations.</div>
-            </div>
-            <div class="card">
-              <div class="thumb">Top Clip</div>
-              <div><strong>Roblox Exploit Montage</strong></div>
-              <div class="muted">A short clip with flashy edits & vibes.</div>
-            </div>
-            <div class="card">
-              <div class="thumb">Behind the Scenes</div>
-              <div><strong>Setup & Tools</strong></div>
-              <div class="muted">How I edit my videos and craft beats.</div>
-            </div>
-          </div>
-        </div>
-
-        <div id="page-bio" class="page" role="tabpanel" hidden>
-          <h3 style="color:var(--pink)">About Me</h3>
-          <p>I make YouTube videos focused on Roblox exploiting — clips, montages, and tutorials. My channel mixes high-energy music, cinematic edits, and a cheeky presentation style.</p>
-          <p class="muted">I upload frequently and experiment with edits that match the song's beat.</p>
-
-          <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
-            <div class="card" style="min-width:220px;">
-              <strong>Channel</strong>
-              <div class="muted">YouTube / Prompt</div>
-            </div>
-            <div class="card" style="min-width:220px;">
-              <strong>Style</strong>
-              <div class="muted">Fast cuts • Bright edits • Beat-sync</div>
-            </div>
-          </div>
-        </div>
-
-        <div id="page-videos" class="page" role="tabpanel" hidden>
-          <h3 style="color:var(--pink)">Featured Videos</h3>
-          <div class="grid" style="margin-top:12px;">
-            <div class="card">
-              <div class="thumb">YT</div>
-              <div><strong>Exploit Montage #1</strong></div>
-              <div class="muted">3:12 • 200k views</div>
-            </div>
-            <div class="card">
-              <div class="thumb">YT</div>
-              <div><strong>Trick Shots</strong></div>
-              <div class="muted">1:42 • 98k views</div>
-            </div>
-            <div class="card">
-              <div class="thumb">YT</div>
-              <div><strong>Beat Sync Edits</strong></div>
-              <div class="muted">2:04 • 54k views</div>
-            </div>
-          </div>
-        </div>
-
-        <div id="page-contact" class="page" role="tabpanel" hidden>
-          <h3 style="color:var(--pink)">Contact</h3>
-          <p class="muted">For collabs or inquiries, reach out on YouTube or email.</p>
-          <div style="margin-top:14px;display:flex;gap:8px;align-items:center">
-            <img src="https://img.icons8.com/ios-filled/40/ff6fb5/new-post.png" alt="">
-            <div>
-              <div><strong>Email</strong></div>
-              <div class="muted">youremail@example.com</div>
-            </div>
-          </div>
-        </div>
-
-      </section>
-    </main>
+      <footer style="font-size:12px;color:#9b6f80;margin-top:6px">Made for GitHub Pages • Pink & White • Icons by Icons8</footer>
+    </section>
   </div>
 
-  <!-- click overlay to start audio (requires user gesture) -->
-  <div class="click-overlay" id="clickOverlay" role="dialog" aria-label="Start audio">
-    <div class="click-box" id="clickBox">
-      <div class="pulse">
-        <img src="https://img.icons8.com/ios/48/ff6fb5/music--v1.png" alt="music">
-      </div>
-      <h3>Click...</h3>
-      <p>Start the song & make the UI dance</p>
+  <!-- overlay for click-to-start -->
+  <div id="overlay" role="dialog" aria-label="Click to start audio">
+    <div class="bubble" id="clickBubble" tabindex="0">
+      <h2>Click...</h2>
+      <p>Play — Caramelldansen</p>
     </div>
   </div>
 
-  <!-- audio element (local file cool.mp3, put in same folder) -->
-  <audio id="music" src="cool.mp3" crossorigin="anonymous"></audio>
+  <!-- audio (local file cool.mp3 must be in same directory) -->
+  <audio id="song" src="cool.mp3" crossorigin="anonymous"></audio>
 
   <script>
-    // Basic DOM
-    const clickOverlay = document.getElementById('clickOverlay');
-    const app = document.getElementById('app');
-    const music = document.getElementById('music');
-    const nowPlaying = document.getElementById('nowPlaying');
-    const centerIntro = document.getElementById('centerIntro');
+    /************* Video IDs seeded from your channel (update as you want) *************
+     * I grabbed recent video IDs from your channel to seed this carousel.
+     * Replace these IDs with any YouTube video IDs you prefer.
+     *******************************************************************************/
+    const videoIDs = [
+      "DmJ0o3hvRMw",
+      "Sodivy483_4",
+      "iyRi1RtU-bg",
+      "uS2rA97j2T0",
+      "lcCnl463SfM"
+    ];
+
+    // Elements
+    const overlay = document.getElementById('overlay');
+    const clickBubble = document.getElementById('clickBubble');
+    const songEl = document.getElementById('song');
     const danceText = document.getElementById('danceText');
-    const floaterA = document.getElementById('floaterA');
-    const floaterB = document.getElementById('floaterB');
-    const floaterC = document.getElementById('floaterC');
+    const bigCenter = document.getElementById('bigCenter');
+
+    // carousel state
+    let current = 0;
+    const frame = document.getElementById('videoFrame');
+    const thumbs = document.getElementById('thumbs');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const playPause = document.getElementById('playPause');
+
+    // build thumbs and set first video
+    function setupVideos(){
+      thumbs.innerHTML = "";
+      videoIDs.forEach((id, i) => {
+        const thumb = document.createElement('img');
+        thumb.src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+        thumb.alt = "video " + (i+1);
+        thumb.addEventListener('click', ()=>{ current = i; loadCurrent(); });
+        thumbs.appendChild(thumb);
+      });
+      loadCurrent();
+    }
+    function loadCurrent(){
+      frame.src = `https://www.youtube.com/embed/${videoIDs[current]}?rel=0&modestbranding=1&autoplay=1`;
+      // highlight thumb visually by adding a soft border
+      Array.from(thumbs.children).forEach((t,idx)=> t.style.outline = idx===current ? "3px solid rgba(255,102,178,0.12)" : "none");
+    }
+
+    prevBtn.addEventListener('click', ()=>{ current = (current-1 + videoIDs.length) % videoIDs.length; loadCurrent(); });
+    nextBtn.addEventListener('click', ()=>{ current = (current+1) % videoIDs.length; loadCurrent(); });
+
+    let playing = true;
+    playPause.addEventListener('click', ()=>{
+      if(playing){ songEl.pause(); playPause.textContent = "Play"; playing=false }
+      else { songEl.play(); playPause.textContent = "Pause"; playing=true }
+    });
+
+    setupVideos();
 
     // Tabs
-    const tabs = document.querySelectorAll('.tab');
-    const pages = document.querySelectorAll('.page');
-    tabs.forEach(tab=>{
-      tab.addEventListener('click', ()=> activateTab(tab.dataset.tab));
-      tab.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') activateTab(tab.dataset.tab); });
+    document.querySelectorAll('.nav button').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+        document.getElementById(tab).classList.add('active');
+      });
     });
-    function activateTab(name){
-      tabs.forEach(t=> t.classList.toggle('active', t.dataset.tab===name));
-      pages.forEach(p=> p.hidden = p.id !== 'page-' + name);
+
+    // initial dance headline fade-out after a few beats
+    function fadeOutHero(){
+      bigCenter.style.transition = "opacity 700ms ease, transform 700ms ease";
+      bigCenter.style.opacity = 0;
+      bigCenter.style.transform = "translateX(-50%) translateY(-20px) scale(.98)";
+      setTimeout(()=>bigCenter.remove(),900);
     }
 
-    // Web Audio & beat detection setup
-    let audioCtx, analyser, source, dataArray, bufferLength;
-    let lastBeatTime = 0;
-    let lastHardBeatTime = 0;
+    // Beat detection using Web Audio API
+    let audioCtx, source, analyser, dataArray, bufferLength;
+    let lastBeat = 0;
+    let threshold = 170; // initial threshold for peak
+    let cooldown = 260; // ms between beats
 
-    async function initAudio() {
-      if (audioCtx) return;
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      await audioCtx.audioWorklet?.catch(()=>{}); // safe guard
-      source = audioCtx.createMediaElementSource(music);
-      analyser = audioCtx.createAnalyser();
-      analyser.fftSize = 2048;
-      bufferLength = analyser.frequencyBinCount;
-      dataArray = new Uint8Array(bufferLength);
-      source.connect(analyser);
-      analyser.connect(audioCtx.destination);
-      tick(); // start analysing
+    function setupAudioProcessing(){
+      try{
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        source = audioCtx.createMediaElementSource(songEl);
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 512;
+        bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+        source.connect(analyser);
+        analyser.connect(audioCtx.destination);
+        // start the beat loop
+        requestAnimationFrame(beatLoop);
+      }catch(e){
+        console.warn("AudioContext failed:", e);
+      }
     }
 
-    // Beat detection basic algorithm: use average volume from frequency data.
-    function detectBeat() {
+    function beatLoop(){
       analyser.getByteFrequencyData(dataArray);
+      // compute average energy
       let sum = 0;
-      for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
-      let avg = sum / bufferLength; // 0 - 255 approximate
-
+      for(let i=0;i<dataArray.length;i++) sum += dataArray[i];
+      const avg = sum / dataArray.length;
+      // adaptive threshold smoothing
+      threshold = threshold*0.95 + avg*0.05 + 10;
       const now = performance.now();
-      // thresholds tuned for typical levels; may vary by file.
-      const beatThreshold = 35; // general beat threshold
-      const hardThreshold = 95; // strong beat (hard bounce)
-      const beatGap = 200; // ms between beats
-      const hardGap = 400;
-
-      if (avg > beatThreshold && (now - lastBeatTime) > beatGap) {
-        lastBeatTime = now;
-        triggerBeat();
+      if(avg > threshold && (now - lastBeat) > cooldown){
+        lastBeat = now;
+        popBeat();
       }
-      if (avg > hardThreshold && (now - lastHardBeatTime) > hardGap) {
-        lastHardBeatTime = now;
-        triggerHardBeat();
-      }
-
-      // return avg for visualizers
-      return avg;
+      requestAnimationFrame(beatLoop);
     }
 
-    // UI beat handlers
-    function triggerBeat() {
-      app.classList.add('beat');
-      setTimeout(()=> app.classList.remove('beat'), 220);
-      // subtle scale of floaters
-      floaterA.style.transform = 'scale(1.02)';
-      setTimeout(()=> floaterA.style.transform = '', 190);
-    }
-    function triggerHardBeat() {
-      app.classList.add('hard-beat');
-      setTimeout(()=> app.classList.remove('hard-beat'), 420);
-      floaterB.style.transform = 'translateY(-12px) scale(1.04)';
-      floaterC.style.transform = 'translateY(-6px) scale(1.02)';
-      setTimeout(()=> {
-        floaterB.style.transform = '';
-        floaterC.style.transform = '';
-      }, 380);
+    function popBeat(){
+      // add .beat to a few elements to animate
+      document.querySelectorAll('.avatar, .feature, .nav button.active, .card, .intro').forEach(el=>{
+        el.classList.remove('beat');
+        void el.offsetWidth;
+        el.classList.add('beat');
+      });
+      // small dancer text pop
+      danceText.style.opacity = 1;
+      danceText.style.transform = "translateY(-6px)";
+      setTimeout(()=>{ danceText.style.opacity = .95; danceText.style.transform = "translateY(0)"; }, 160);
     }
 
-    // animation loop to read analyser
-    function tick(){
-      if (analyser) {
-        const avg = detectBeat();
-        // also slightly rotate main container to the bass
-        const bass = Math.min(1, avg / 160); // 0..1
-        app.style.transform = `scale(${1 + bass*0.01})`;
-      }
-      requestAnimationFrame(tick);
+    // overlay click starts audio and audio processing
+    function startExperience(){
+      overlay.remove();
+      songEl.play().catch(()=>{ /* may be blocked if not user gesture; but click just happened */ });
+      if(!audioCtx) setupAudioProcessing();
+      // fade hero text after 3 seconds
+      setTimeout(()=>fadeOutHero(), 3000);
     }
 
-    // handle initial click to start playback
-    document.getElementById('clickBox').addEventListener('click', async () => {
-      // Initialize audio context and play on user gesture
-      await initAudio();
-      try {
-        await music.play();
-      } catch (e) {
-        console.warn('Play failed:', e);
-      }
-      clickOverlay.style.display = 'none';
-      nowPlaying.textContent = 'Caramelldansen (cool.mp3)';
-      // show the center intro then fade
-      centerIntro.classList.remove('hidden');
-      setTimeout(()=> centerIntro.classList.add('fade-out'), 1200);
-    });
+    clickBubble.addEventListener('click', startExperience);
+    clickBubble.addEventListener('keydown', (e)=>{ if(e.key === "Enter") startExperience(); });
 
-    // Keyboard convenience: clicking anywhere on overlay also starts
-    clickOverlay.addEventListener('click', (e)=>{
-      if (e.target === clickOverlay) document.getElementById('clickBox').click();
-    });
+    // make sure clicking any control resumed the audio context (mobile / browsers)
+    document.addEventListener('click', ()=>{ if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); });
 
-    // small visual micro-interactions
-    document.getElementById('followBtn').addEventListener('click', (e)=>{ e.preventDefault(); alert('Followed!'); });
+    // small visual: animate danceText on page load to invite click
+    (function introPulse(){
+      const el = document.getElementById('danceHero');
+      let up = true;
+      setInterval(()=>{
+        el.style.transform = up ? "translateX(-50%) scale(1.06)" : "translateX(-50%) scale(1)";
+        up = !up;
+      }, 700);
+    })();
 
-    // simple search demonstration
-    document.getElementById('searchInput').addEventListener('input', (e)=>{
-      const q = e.target.value.trim().toLowerCase();
-      if (!q) return;
-      // quick highlight: if "video" show videos tab
-      if (q.includes('video') || q.includes('yt')) activateTab('videos');
-    });
+    // Populate 'Latest Videos' list (simple)
+    const videoList = document.getElementById('videoList');
+    videoList.innerHTML = videoIDs.map(id => {
+      const url = `https://www.youtube.com/watch?v=${id}`;
+      return `<div style="margin-bottom:8px;padding:8px;border-radius:8px;background:linear-gradient(90deg,rgba(255,255,255,0.95),rgba(255,245,249,0.9));display:flex;gap:10px;align-items:center">
+        <img src="https://img.youtube.com/vi/${id}/mqdefault.jpg" style="width:160px;height:90px;border-radius:8px;object-fit:cover">
+        <div>
+          <div style="font-weight:700;color:#5a2540">Video</div>
+          <div style="font-size:13px;color:#8b6a78;margin-top:6px">From your channel — <a href="${url}" target="_blank" rel="noopener noreferrer">Watch on YouTube</a></div>
+        </div>
+      </div>`;
+    }).join("");
 
-    // make some initial gentle bobbing of floaters (invisible to pointer)
-    function floatersLoop(){
-      floaterA.animate([{transform:'translateY(0)'},{transform:'translateY(-8px)'},{transform:'translateY(0)'}],{duration:6000,iterations:Infinity, easing:'ease-in-out'});
-      floaterB.animate([{transform:'translateY(0)'},{transform:'translateY(-20px)'},{transform:'translateY(0)'}],{duration:9000,iterations:Infinity,easing:'ease-in-out'});
-      floaterC.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}],{duration:7000,iterations:Infinity,easing:'ease-in-out'});
-    }
-    floatersLoop();
+    // small safety: if cool.mp3 isn't found, show overlay message in console
+    songEl.addEventListener('error', ()=> console.warn("Could not load cool.mp3 — make sure file is in same folder and named cool.mp3"));
 
-    // accessibility: let Enter on overlay start music
-    document.addEventListener('keydown', (e)=>{
-      if (!music.paused && e.key===' ') { e.preventDefault(); (music.paused?music.play():music.pause()); }
-    });
+    // ensure mobile friendly controls: stop video autoplay on mobile if needed
+    frame.addEventListener('load', ()=>{ /* no-op */ });
 
-    // small safety: if audio fails to load, indicate to user
-    music.addEventListener('error', ()=>{
-      nowPlaying.textContent = 'Audio failed to load (put cool.mp3 in same folder)';
-      alert('Failed to load cool.mp3 — make sure the file is in the same folder as index.html and the filename is exactly cool.mp3');
-    });
+    // Accessibility focus style
+    clickBubble.addEventListener('focus', ()=> clickBubble.style.outline = '3px solid rgba(255,102,178,0.12)');
+    clickBubble.addEventListener('blur', ()=> clickBubble.style.outline = 'none');
 
-    // optional: make center intro text bounce on each beat too
-    function triggerDanceText(){
-      danceText.animate([{transform:'scale(1)'},{transform:'scale(1.08) rotate(-2deg)'},{transform:'scale(1)'}],{duration:300,easing:'ease-in-out'});
-    }
+    // small tweak: animate the avatar initials into loaded avatar
+    (function setAvatar(){
+      const a = document.getElementById('avatar');
+      // if you have a YouTube profile image url, replace the src creation above.
+      a.textContent = "HH";
+      a.style.fontSize = "36px";
+    })();
 
-    // Hook into beat functions to animate text too
-    const origTriggerBeat = triggerBeat;
-    triggerBeat = function(){
-      origTriggerBeat();
-      triggerDanceText();
-    };
-
-    // Ensure we didn't shadow earlier; if audio already unlocked (devtools) keep overlay until actual click
-    // End of script
+    // Start with small visual pulse on overlay bubble
+    setInterval(()=> {
+      clickBubble.animate([{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}],{duration:1200,iterations:1});
+    },1600);
   </script>
 </body>
 </html>
